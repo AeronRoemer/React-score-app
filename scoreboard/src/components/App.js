@@ -34,7 +34,7 @@ class App extends Component {
    //player id counter
    prevPlayerId = 4;
 
-  handleScoreChange (index, delta){
+  handleScoreChange = (index, delta) => {
     this.setState( prevState => {
       // New 'players' array – a copy of the previous `players` state
       const updatedPlayers = [ ...prevState.players ];
@@ -65,16 +65,17 @@ class App extends Component {
   }
 
   handleAddPlayer = (name) => {
-    this.setState({
+    this.setState(prevState => {
+      return {
       players: [
-        ...this.state.players,
+        ...prevState.players,
         {
           name,
           score: 0,
           id: this.prevPlayerId += 1
         }
       ]
-    })
+    }})
   }
 
   render() {
