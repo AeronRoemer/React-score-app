@@ -34,7 +34,7 @@ class App extends Component {
    //player id counter
    prevPlayerId = 4;
 
-  handleScoreChange = (index, delta) => {
+  handleScoreChange (index, delta){
     this.setState( prevState => {
       // New 'players' array – a copy of the previous `players` state
       const updatedPlayers = [ ...prevState.players ];
@@ -53,6 +53,9 @@ class App extends Component {
     });
   }
 
+//arrow functions don't produce a 'this' that is passed on. 
+//When they're called in AddPlayerForm the 'this' is referring to the array of components used here in app.js
+
   handleRemovePlayer = (id) => {
     this.setState( prevState => {
       return {
@@ -61,19 +64,18 @@ class App extends Component {
     });
   }
 
-  handleAddPlayer(name){
+  handleAddPlayer = (name) => {
     this.setState({
-        players:[
-            //brings in old array of players and tacks on news ones.
-            ...this.state.players,
-        {   name,
-            score: 0,
-            //increments id by one each time
-            id: this.prevPlayerId +=1,
+      players: [
+        ...this.state.players,
+        {
+          name,
+          score: 0,
+          id: this.prevPlayerId += 1
         }
-        ]
+      ]
     })
-}
+  }
 
   render() {
     return (
