@@ -19,6 +19,11 @@ class Stopwatch extends Component{
     componentDidMount(){
         this.intervalID = setInterval(() => this.tick(), 100)
     }
+  //unmounting stops ticking and saves memory
+    componentWillUnmount(){
+        ///clearInterval used to remove intervals set by Set  Interval
+        clearInterval(this.intervalID)
+    }
 //tick calcluations to ensure accuracy of timer
     tick = () => {
         if (this.state.isRunning){

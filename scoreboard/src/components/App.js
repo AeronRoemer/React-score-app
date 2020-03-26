@@ -2,7 +2,7 @@
 //Class app extends Component, not React.Component
 import React, { Component } from 'react';
 import Header from './Header';
-import Player from './Player';
+import Player from './Player';  
 import AddPlayerForm from './AddPlayerForm';
 
 class App extends Component {
