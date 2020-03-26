@@ -40,12 +40,10 @@ class App extends Component {
       const updatedPlayers = [ ...prevState.players ];
       // A copy of the player object we're targeting
       const updatedPlayer = { ...updatedPlayers[index] };
-
       // Update the target player's score
       updatedPlayer.score += delta;
       // Update the 'players' array with the target player's latest score
       updatedPlayers[index] = updatedPlayer;
-
       // Update the `players` state without mutating the original state
       return {
         players: updatedPlayers
@@ -78,14 +76,25 @@ class App extends Component {
     }})
   }
 
+//creates a highScore varaiable containing the highest score
+getHighScore = () => {
+    const scores = this.state.players.map(p => p.score);
+    const highScore = Math.max(...scores);
+    if (highScore) {
+      return highScore
+    } else {
+      return null;
+    }
+  
+}
   render() {
+    const highScore = this.getHighScore();
     return (
       <div className="scoreboard">
         <Header 
           title="Scoreboard" 
           players={this.state.players} 
         />
-  
         {/* Players list */}
         {this.state.players.map( (player, index) =>
           <Player 
@@ -93,9 +102,11 @@ class App extends Component {
             score={player.score}
             id={player.id}
             index={index}
+            isHighScore={highScore===player.score}
             key={player.id.toString()} 
             changeScore={this.handleScoreChange}
-            removePlayer={this.handleRemovePlayer}           
+            removePlayer={this.handleRemovePlayer}
+             
           />
         )}
         <AddPlayerForm addPlayer={this.handleAddPlayer}/>

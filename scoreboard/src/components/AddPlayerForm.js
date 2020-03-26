@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
 
 class AddPlayerForm extends Component {
-    state = {
-        value:''
-    };
 
-    //adds the form value to this components' state
-    handleValueChange(e){
-        this.setState({ value: e.target.value });
-      }
+    //creates a react ref for interacting with the DOM
+    playerInput = React.createRef();
+
     
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.addPlayer(this.state.value);
-    this.setState({ value: '' });
+    //uses the ref to set the text field
+    this.props.addPlayer(this.playerInput.current.value);
+    e.currentTarget.reset();
   }
     
     render(){
+        //console.log(this.playerInput)
         return(
             //uses React's onSubmit property with a function the user writes
             <form onSubmit={this.handleSubmit}>
                 <input
                   type="text"
-                  value={this.state.value}
-                  onChange={this.handleValueChange.bind(this)}
+                  //ref added here, can be accessed outside of the form like in console log
+                  ref={this.playerInput}
                   placeholder="Enter a player's name"
                 />
                 <input
