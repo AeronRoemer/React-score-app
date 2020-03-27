@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react';
+import {Consumer} from './Context';
 import Counter from './Counter';
 import PropTypes from 'prop-types';
 import Icon from './Icon'
@@ -9,7 +10,6 @@ class Player extends PureComponent {
   //static lets you validate prop types while inside a component
   static propTypes = {
     changeScore: PropTypes.func,
-    removePlayer: PropTypes.func,
     //gives warning if prop is missing
     name: PropTypes.string.isRequired,
     score: PropTypes.number.isRequired,
@@ -21,25 +21,26 @@ class Player extends PureComponent {
 render(){
   const {
     name,
-    isHighScore,
     id, 
     score, 
-    index, 
-    removePlayer,
-    changeScore } = this.props;
-    console.log({isHighScore})
+    index } = this.props;
   return (
     <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={() => removePlayer(id)}>✖</button>
+    <Consumer>
+      {({actions}) => (
+        <span className="player-name">
+        <button className="remove-player" onClick={() => actions.removePlayer(id)}>✖</button>
         { name }
-        <Icon isHighScore={isHighScore}/>
+        <Icon isHighScore={score === actions.getHighScore()}/>
       </span>
+      )}
+    </Consumer>
+
 
       <Counter
        score={score} 
        index={index}
-       changeScore={changeScore}/>
+       />
     </div>
   );
 }

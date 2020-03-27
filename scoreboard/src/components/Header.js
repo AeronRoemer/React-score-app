@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 
 
 
-const Header = ({players, title}) => {
+const Header = ({ title}) => {
     return (
       <header>
-        <Stats players={players}/>
+        <Stats/>
         <h1>{ title }</h1> 
         <Stopwatch />
       </header>
@@ -17,7 +17,6 @@ const Header = ({players, title}) => {
 
 Header.propTypes = {
   title: PropTypes.string,
-  players: PropTypes.arrayOf(PropTypes.object)
 }
 
 //gives a default if one is not provided
